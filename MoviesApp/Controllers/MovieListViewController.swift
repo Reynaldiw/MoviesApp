@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MovieListViewController: UIViewController {
 
@@ -21,12 +23,8 @@ class MovieListViewController: UIViewController {
     }(DateFormatter())
     
     let movieService: MovieService = MovieStore.shared
-    
-    var movies = [Movie]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var movieListViewViewModel : MovieListViewViewModel!
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +32,25 @@ class MovieListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        movieListViewViewModel = MovieListViewViewModel(endpoint: .from(optional: Endpoint.nowPlaying), movieService: movieService)
+        
+        movieListViewViewModel.movies.drive(onNext: { [unowned self] (_) in
+            self.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        movieListViewViewModel
+            .isFetching
+            .drive(activityIndicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
+        
+        movieListViewViewModel
+            .error
+            .drive(onNext: { [unowned self] (error) in
+                self.infoLabel.isHidden = !self.movieListViewViewModel.hasError
+                self.infoLabel.text = error
+            }).disposed(by: disposeBag)
+        
         setupTableView()
-        fetchMovies()
 
     }
     
@@ -43,48 +58,18 @@ class MovieListViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.register(UINib(nibName: "MovieCell", bundle: nil), forCellReuseIdentifier: "MovieCell")
     }
-    
-    func fetchMovies() {
-        self.movies = []
-        activityIndicatorView.isHidden = false
-        activityIndicatorView.startAnimating()
-        infoLabel.isHidden = true
-        
-        movieService.fetchMovies(from: Endpoint.nowPlaying, params: nil, successHandler: { [unowned self] (response) in
-            self.activityIndicatorView.stopAnimating()
-            self.activityIndicatorView.isHidden = true
-            self.tableView.isHidden = false
-            self.movies = response.results
-        }) { [unowned self] (error) in
-            self.activityIndicatorView.stopAnimating()
-            self.activityIndicatorView.isHidden = true
-            self.infoLabel.text = error.localizedDescription
-            self.tableView.isHidden = true
-            self.infoLabel.isHidden = false
-        }
-    }
 }
 
 extension MovieListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return movieListViewViewModel.numberOfMovies
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        
-        let movie = movies[indexPath.row]
-        
-        cell.titleLabel.text = movie.title
-        cell.releaseDateLabel.text = dateFormatter.string(from: movie.releaseDate)
-        cell.overviewLabel.text = movie.overview
-        cell.posterImageView.loadRemoteImage(url: movie.posterURL)
-        
-        let rating = Int(movie.voteAverage)
-        let ratingText = (0..<rating).reduce("") { (acc, _) -> String in
-            return acc + "⭐️"
+        if let viewModel = movieListViewViewModel.viewModelForMovie(at: indexPath.row) {
+            cell.configure(viewModel: viewModel)
         }
-        cell.ratingLabel.text = ratingText
         
         return cell
     }

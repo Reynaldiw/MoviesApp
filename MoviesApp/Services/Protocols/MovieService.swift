@@ -14,6 +14,13 @@ protocol MovieService {
 
 public enum Endpoint: String, CaseIterable {
     case nowPlaying = "now_playing"
+    
+    public init?(index: Int) {
+        switch index {
+        case 0: self = .nowPlaying
+        default: return nil
+        }
+    }
 }
 
 public enum MovieError: Error {
