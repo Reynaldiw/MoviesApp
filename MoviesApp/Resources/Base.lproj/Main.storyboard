@@ -7,21 +7,55 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie Search View Controller-->
+        <!--Search-->
         <scene sceneID="tpi-2H-FNN">
             <objects>
                 <viewController id="6Nh-SR-WnP" customClass="MovieSearchViewController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gV9-3P-4tr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6re-3F-IDF">
+                                <rect key="frame" x="0.0" y="96" width="414" height="591"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6Nh-SR-WnP" id="huz-EY-Yt3"/>
+                                    <outlet property="delegate" destination="6Nh-SR-WnP" id="5is-XK-3pa"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rBj-cr-NK0">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVa-b1-dyQ">
+                                <rect key="frame" x="169.66666666666666" y="357.66666666666669" width="75" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="HVa-b1-dyQ" firstAttribute="centerX" secondItem="gV9-3P-4tr" secondAttribute="centerX" id="5Qt-Wj-5pO"/>
+                            <constraint firstItem="HVa-b1-dyQ" firstAttribute="centerY" secondItem="gV9-3P-4tr" secondAttribute="centerY" id="AId-Yf-2jp"/>
+                            <constraint firstItem="rBj-cr-NK0" firstAttribute="centerY" secondItem="gV9-3P-4tr" secondAttribute="centerY" id="IE1-UP-NOk"/>
+                            <constraint firstItem="rBj-cr-NK0" firstAttribute="centerX" secondItem="gV9-3P-4tr" secondAttribute="centerX" id="czH-kX-OtU"/>
+                            <constraint firstItem="6re-3F-IDF" firstAttribute="top" secondItem="bga-do-aaV" secondAttribute="top" id="fli-B4-f4p"/>
+                            <constraint firstItem="6re-3F-IDF" firstAttribute="bottom" secondItem="bga-do-aaV" secondAttribute="bottom" id="hEz-Hv-dau"/>
+                            <constraint firstItem="6re-3F-IDF" firstAttribute="leading" secondItem="bga-do-aaV" secondAttribute="leading" id="w5E-Oz-bNs"/>
+                            <constraint firstItem="6re-3F-IDF" firstAttribute="trailing" secondItem="bga-do-aaV" secondAttribute="trailing" id="yZy-0e-n6I"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bga-do-aaV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SZh-9i-a93"/>
+                    <navigationItem key="navigationItem" title="Search" id="SZh-9i-a93"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="HVa-b1-dyQ" id="3CU-rp-tCZ"/>
+                        <outlet property="searchActivityIndicatorView" destination="rBj-cr-NK0" id="xiP-IH-itS"/>
+                        <outlet property="searchTableView" destination="6re-3F-IDF" id="cCS-RX-Ewv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XX4-Sm-fsv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1786.9565217391305" y="55.580357142857139"/>
+            <point key="canvasLocation" x="1786.9565217391305" y="55.434782608695656"/>
         </scene>
         <!--Movie-->
         <scene sceneID="3wz-4e-Jlz">
@@ -113,8 +147,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lj2-fF-qtg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" selectedImage="magnifyingglass" catalog="system" systemItem="search" id="sGD-Xx-zIi"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2tr-Tk-y4O">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="2tr-Tk-y4O">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
