@@ -38,10 +38,8 @@ class MovieListViewController: UIViewController {
             self.tableView.reloadData()
             }).disposed(by: disposeBag)
         
-        movieListViewViewModel
-            .isFetching
-            .drive(activityIndicatorView.rx.isAnimating)
-            .disposed(by: disposeBag)
+        movieListViewViewModel.isFetching.drive(activityIndicatorView.rx.isAnimating)
+        .disposed(by: disposeBag)
         
         movieListViewViewModel
             .error

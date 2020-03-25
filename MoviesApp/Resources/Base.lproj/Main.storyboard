@@ -7,21 +7,57 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie Search View Controller-->
+        <!--Search-->
         <scene sceneID="tpi-2H-FNN">
             <objects>
                 <viewController id="6Nh-SR-WnP" customClass="MovieSearchViewController" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gV9-3P-4tr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IMD-z3-xN3">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6Nh-SR-WnP" id="6lZ-qV-CCG"/>
+                                    <outlet property="delegate" destination="6Nh-SR-WnP" id="B8U-9B-dJH"/>
+                                </connections>
+                            </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KMT-hH-4Be">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start searching your favourite movies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfb-ww-TI6">
+                                <rect key="frame" x="16" y="323" width="343" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="IMD-z3-xN3" firstAttribute="bottom" secondItem="bga-do-aaV" secondAttribute="bottom" id="3PR-zC-oHh"/>
+                            <constraint firstItem="IMD-z3-xN3" firstAttribute="leading" secondItem="bga-do-aaV" secondAttribute="leading" id="4tv-qD-6Hx"/>
+                            <constraint firstItem="kfb-ww-TI6" firstAttribute="leading" secondItem="bga-do-aaV" secondAttribute="leading" constant="16" id="9vT-AW-8x8"/>
+                            <constraint firstItem="IMD-z3-xN3" firstAttribute="trailing" secondItem="bga-do-aaV" secondAttribute="trailing" id="KfS-wE-Dbx"/>
+                            <constraint firstItem="kfb-ww-TI6" firstAttribute="centerX" secondItem="gV9-3P-4tr" secondAttribute="centerX" id="Lb8-Go-7P1"/>
+                            <constraint firstItem="KMT-hH-4Be" firstAttribute="centerX" secondItem="gV9-3P-4tr" secondAttribute="centerX" id="Qjt-qT-jCb"/>
+                            <constraint firstItem="IMD-z3-xN3" firstAttribute="top" secondItem="bga-do-aaV" secondAttribute="top" id="dp7-5m-W9f"/>
+                            <constraint firstItem="KMT-hH-4Be" firstAttribute="centerY" secondItem="gV9-3P-4tr" secondAttribute="centerY" id="ffs-e9-Gwh"/>
+                            <constraint firstItem="kfb-ww-TI6" firstAttribute="centerY" secondItem="gV9-3P-4tr" secondAttribute="centerY" id="xJQ-qa-d0a"/>
+                            <constraint firstItem="bga-do-aaV" firstAttribute="trailing" secondItem="kfb-ww-TI6" secondAttribute="trailing" constant="16" id="yyb-i7-xsH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bga-do-aaV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="SZh-9i-a93"/>
+                    <navigationItem key="navigationItem" title="Search" id="SZh-9i-a93"/>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="KMT-hH-4Be" id="XWk-Xh-ZTq"/>
+                        <outlet property="infoLabel" destination="kfb-ww-TI6" id="cAI-HI-ygA"/>
+                        <outlet property="tableView" destination="IMD-z3-xN3" id="yrr-q2-3j7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XX4-Sm-fsv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1786.9565217391305" y="55.580357142857139"/>
+            <point key="canvasLocation" x="1786.4000000000001" y="55.322338830584712"/>
         </scene>
         <!--Movie-->
         <scene sceneID="3wz-4e-Jlz">
@@ -35,7 +71,7 @@
                                 <rect key="frame" x="0.0" y="96" width="375" height="522"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fio-Wc-lRv">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fio-Wc-lRv">
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5f-yY-egk">

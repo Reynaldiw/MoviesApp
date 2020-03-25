@@ -10,6 +10,8 @@ import Foundation
 
 protocol MovieService {
     func fetchMovies(from endpoint : Endpoint, params: [String : String]?, successHandler: @escaping (_ response: MovieResponse) -> Void, errorHandler: @escaping (_ error: Error) -> Void)
+    
+    func searchMovie(query: String, params: [String : String]?, successHandler: @escaping (_ response: MovieResponse) -> Void, errorHandler: @escaping (_ error: Error) -> Void)
 }
 
 public enum Endpoint: String, CaseIterable {
