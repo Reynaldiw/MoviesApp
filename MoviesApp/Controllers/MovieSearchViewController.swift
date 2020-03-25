@@ -14,6 +14,12 @@ class MovieSearchViewController: UIViewController {
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var searchActivityIndicatorView: UIActivityIndicatorView!
     
+    let dateFormatter: DateFormatter = {
+        $0.dateStyle = .medium
+        $0.timeStyle = .none
+        return $0
+    }(DateFormatter())
+    
     let service: MovieService = MovieStore.shared
     var movies = [Movie]() {
         didSet {
@@ -24,8 +30,9 @@ class MovieSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchActivityIndicatorView.isHidden = true
         setupNavigationBar()
-        let searchBar = navigationItem.searchController!.searchBar
+        setupTableView()
 
     }
     
@@ -33,16 +40,35 @@ class MovieSearchViewController: UIViewController {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         self.definesPresentationContext = true
         navigationItem.searchController?.dimsBackgroundDuringPresentation = false
-        
         navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         
         navigationItem.searchController?.searchBar.sizeToFit()
+        navigationItem.searchController?.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func fetchMovies(query: String) {
+    private func searchMovie(query: String) {
+        self.movies = []
+        searchActivityIndicatorView.isHidden = false
+        self.searchActivityIndicatorView.startAnimating()
+        self.infoLabel.isHidden = true
         
+        service.searchMovie(query: query, params: nil, successHandler: { [unowned self] (response) in
+            self.searchActivityIndicatorView.stopAnimating()
+            self.searchActivityIndicatorView.isHidden = true
+            if response.totalResults == 0 {
+                self.infoLabel.text = "No results for \(query)"
+                self.infoLabel.isHidden = false
+            }
+            self.movies = Array(response.results.prefix(5))
+
+        }) { [unowned self] (error) in
+            self.searchActivityIndicatorView.stopAnimating()
+            self.searchActivityIndicatorView.isHidden = true
+            self.infoLabel.isHidden = false
+            self.infoLabel.text = error.localizedDescription
+        }
     }
     
     private func setupTableView() {
@@ -76,5 +102,29 @@ extension MovieSearchViewController: UITableViewDelegate, UITableViewDataSource 
         cell.ratingLabel.text = ratingText
         
         return cell
+    }
+}
+
+extension MovieSearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        
+        searchMovie(query: searchBar.text!)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        
+        self.movies = []
+        self.infoLabel.text = "Start searching your favourite movies"
+        self.infoLabel.isHidden = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.movies = []
+        if searchText.isEmpty {
+            self.infoLabel.text = "Start searching your favourite movies"
+            self.infoLabel.isHidden = false
+        }
     }
 }

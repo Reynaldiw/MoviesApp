@@ -100,7 +100,7 @@ class MovieStore: MovieService {
             errorHandler(MovieError.invalidEndpoint)
             return
         }
-        
+                
         urlSession.dataTask(with: url) { (data, response, error) in
             if error != nil {
                 self.handleError(errorHandler: errorHandler, error: MovieError.apiError)
