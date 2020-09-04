@@ -2,7 +2,7 @@
 //  ImageViewExtension.swift
 //  MoviesApp
 //
-//  Created by Reynaldi Wijaya on 21/03/20.
+//  Created by Reynaldi Wijaya on 02/09/20.
 //  Copyright © 2020 Reynaldi Wijaya. All rights reserved.
 //
 
