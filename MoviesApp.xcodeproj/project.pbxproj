@@ -458,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YKPQ92PAK3;
 				"INFOPLIST_FILE[sdk=*]" = MoviesApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -477,6 +478,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YKPQ92PAK3;
 				INFOPLIST_FILE = MoviesApp/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = MoviesApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
