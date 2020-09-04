@@ -2,7 +2,7 @@
 //  MovieStore.swift
 //  MoviesApp
 //
-//  Created by Reynaldi Wijaya on 21/03/20.
+//  Created by Reynaldi Wijaya on 02/09/20.
 //  Copyright © 2020 Reynaldi Wijaya. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ class MovieStore: MovieService {
     
     public static let shared = MovieStore()
     private init() {}
-    private let apiKey = "237abc9b06c308ee14cb2ed15957265f"
+    private let apiKey = "YOUR_API_KEY"
     private let baseAPIURL = "https://api.themoviedb.org/3"
     private let urlSession = URLSession.shared
     
