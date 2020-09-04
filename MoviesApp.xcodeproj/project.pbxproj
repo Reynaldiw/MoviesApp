@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -179,7 +179,6 @@
 				4C78189154070C38123699A8 /* Pods-MoviesApp.debug.xcconfig */,
 				BBAB8D2A1ED6C737167DD237 /* Pods-MoviesApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -455,6 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YKPQ92PAK3;
 				"INFOPLIST_FILE[sdk=*]" = MoviesApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -474,6 +474,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YKPQ92PAK3;
 				INFOPLIST_FILE = MoviesApp/Info.plist;
 				"INFOPLIST_FILE[sdk=*]" = MoviesApp/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
